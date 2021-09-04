@@ -279,9 +279,10 @@ module.exports = function solveSudoku(matrix) {
 
   const testNumInEmptyCell = (num, emptyCell, matrix) => {
     const [row, column] = emptyCell;
+    /* console.log([row, column]); */
 
     for (let i = 0; i < size; i++) {
-      if (matrix[i][column] === num && num !== row) {
+      if (matrix[i][column] === num && i !== row) {
         return false;
       }
     }
@@ -309,7 +310,7 @@ module.exports = function solveSudoku(matrix) {
 
     if (emptyCell === null) return true;
 
-    for (let i = 1; i < size; i++) {
+    for (let i = 1; i < size + 1; i++) {
       const num = i;
       const isValid = testNumInEmptyCell(num, emptyCell, matrix);
 
@@ -319,13 +320,14 @@ module.exports = function solveSudoku(matrix) {
 
         if (solveMatrix()) return true;
 
-        matrix[row,column] = 0;
+        matrix[row][column] = 0;
       }
     }
     return false;
   }
 
   solveMatrix();
+  console.log(matrix);
   return matrix;
 }
 
